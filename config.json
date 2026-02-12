@@ -1,6 +1,6 @@
 {
   "rss_feed_url": "https://news.google.com/rss/search?q={keyword}&hl=en-US&gl=US&ceid=US:en",
-  "keyword_filter": "israel",
-  "triggering_event": "someone used Polymarket to Bet on military events",
-  "lookback_minutes": 320
+  "keyword_filter": "Iran",
+  "triggering_event": "Military confrontation between Iran and US or Israel has occured",
+  "lookback_minutes": 60
 }

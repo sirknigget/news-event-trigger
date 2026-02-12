@@ -17,20 +17,20 @@ from src.config import Config
 # Define Pydantic model for test case generation
 class NewsTestCase(BaseModel):
     title: str = Field(description="The news event title")
-    description: str = Field(description="The news event description")
+  #  description: str = Field(description="The news event description")
     expected_classification: bool = Field(description="True if the event matches the trigger, False otherwise")
 
 class TestCases(BaseModel):
     cases: List[NewsTestCase]
 
 def generate_test_cases(triggering_event: str, num_cases: int = 10) -> List[NewsTestCase]:
-    llm = ChatOpenAI(model_name="gpt-4o", temperature=0.7)
+    llm = ChatOpenAI(model_name="gpt-4.1", temperature=0.7)
     
     parser = PydanticOutputParser(pydantic_object=TestCases)
     
     prompt = PromptTemplate(
         template="""You are an expert news analyst and test data generator.
-        Generate {num_cases} diverse news event test cases (title and description) related to the following triggering event:
+        Generate {num_cases} diverse news event test cases (titles) related to the following triggering event:
         "{triggering_event}"
         
         Approximately half of the cases should be positive matches (True) where the event has actually happened.
@@ -61,7 +61,7 @@ def run_evaluation():
         print("OPENAI_API_KEY not found. Please set it to run tests.")
         return
 
-    triggering_event = "Military confrontation between Iran and US or Israel has started"
+    triggering_event = "Military confrontation between Iran and US or Israel has occured"
     
     dummy_config = Config(
         rss_feed_url="",
@@ -90,7 +90,7 @@ def run_evaluation():
         print(f"  Title: {case.title}")
         print(f"  Expected: {case.expected_classification}")
         
-        prediction = classify_event(case.title, case.description, dummy_config)
+        prediction = classify_event(case.title, None, dummy_config)
         print(f"  Predicted: {prediction}")
         
         if prediction == case.expected_classification:

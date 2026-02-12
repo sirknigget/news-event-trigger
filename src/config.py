@@ -22,11 +22,21 @@ def load_config(config_path: str = "config.json") -> Config:
 
     pushover_api_token = os.getenv("PUSHOVER_API_TOKEN")
     openai_api_key = os.getenv("OPENAI_API_KEY")
+    
+    pushover_user_keys_str = os.getenv("PUSHOVER_USER_KEYS", "")
+    pushover_user_keys = [k.strip() for k in pushover_user_keys_str.split(",") if k.strip()]
 
     if not pushover_api_token:
         raise ValueError("PUSHOVER_API_TOKEN environment variable is not set")
     if not openai_api_key:
         raise ValueError("OPENAI_API_KEY environment variable is not set")
+    if not pushover_user_keys:
+         # Fallback to config for backward compatibility or raise error? 
+         # Plan said to move it, so let's check config as fallback but prefer env.
+         pushover_user_keys = config_data.get("pushover_user_keys", [])
+         
+    if not pushover_user_keys:
+        raise ValueError("PUSHOVER_USER_KEYS environment variable is not set")
 
     keyword = config_data["keyword_filter"]
     rss_url = config_data["rss_feed_url"]
@@ -38,7 +48,7 @@ def load_config(config_path: str = "config.json") -> Config:
         keyword_filter=keyword,
         triggering_event=config_data["triggering_event"],
         lookback_minutes=config_data.get("lookback_minutes", 60),
-        pushover_user_keys=config_data.get("pushover_user_keys", []),
+        pushover_user_keys=pushover_user_keys,
         pushover_api_token=pushover_api_token,
         openai_api_key=openai_api_key,
     )

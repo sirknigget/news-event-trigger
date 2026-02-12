@@ -14,6 +14,7 @@ A scheduled Python script that monitors news via RSS, filters by keyword, classi
     ```
     OPENAI_API_KEY=sk-...
     PUSHOVER_API_TOKEN=...
+    PUSHOVER_USER_KEYS=key1,key2
     ```
 
 3.  **Configuration**:
@@ -37,5 +38,6 @@ The workflow is defined in `.github/workflows/main.yml`.
 You must set the following **Repository Secrets** in GitHub:
 - `OPENAI_API_KEY`
 - `PUSHOVER_API_TOKEN`
+- `PUSHOVER_USER_KEYS`
 
 The script is scheduled to run every hour.

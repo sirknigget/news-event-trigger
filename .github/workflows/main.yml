@@ -21,15 +21,18 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
-      # Cache Playwright browsers (important for speed)
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(uv run playwright --version | awk '{print $2}')" >> $GITHUB_ENV
+
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('uv.lock') }}
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Install Playwright browsers
-        run: uv run playwright install chromium --with-deps
+        run: uv run playwright install chromium
 
       - name: Run script
         env:

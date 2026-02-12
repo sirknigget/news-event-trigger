@@ -1,7 +1,9 @@
+import logging
+
 import requests
 from typing import List, Optional, Tuple
 
-from follow_redirects import follow_redirects
+from src.follow_redirects import follow_redirects
 
 # Pushover limits
 MAX_MESSAGE_LENGTH = 1024
@@ -28,7 +30,9 @@ def prepare_message_and_url(message: str, url: str) -> Tuple[str, Optional[str]]
         return message, url
     
     # Step 3: Follow redirects to get final URL
+    logging.info(f"URL too long ({len(url)} chars), following redirects.")
     final_url = follow_redirects(url)
+    logging.info(f"Final URL after redirects: {final_url}")
     
     # If final URL is within limits, return it
     if len(final_url) <= MAX_URL_LENGTH:

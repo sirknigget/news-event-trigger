@@ -1,6 +1,8 @@
 import requests
 from typing import List, Optional, Tuple
 
+from follow_redirects import follow_redirects
+
 # Pushover limits
 MAX_MESSAGE_LENGTH = 1024
 MAX_URL_LENGTH = 512
@@ -26,23 +28,17 @@ def prepare_message_and_url(message: str, url: str) -> Tuple[str, Optional[str]]
         return message, url
     
     # Step 3: Follow redirects to get final URL
-    try:
-        response = requests.head(url, allow_redirects=True, timeout=10)
-        final_url = response.url
-    except requests.exceptions.RequestException:
-        # If we can't follow redirects, use the original URL
-        final_url = url
+    final_url = follow_redirects(url)
     
     # If final URL is within limits, return it
     if len(final_url) <= MAX_URL_LENGTH:
         return message, final_url
     
     # Step 4: Final URL is still too long, embed it in the message
-    # Calculate available space: MAX_MESSAGE_LENGTH - "... " - final_url
-    url_with_separator = "... " + final_url
-    if (len(message) + len(url_with_separator)) > MAX_MESSAGE_LENGTH:
+    if len(final_url) > MAX_MESSAGE_LENGTH:
+        # Edge case: URL alone is too long for message field, can't return it in any way
         return message, None
-    return message + url_with_separator, None
+    return final_url, None
 
 def send_notification(title: str, message: str, url: str, user_keys: List[str], api_token: str):
     api_url = "https://api.pushover.net/1/messages.json"

@@ -1,0 +1,22 @@
+[project]
+name = "news-event-trigger"
+version = "0.1.0"
+description = "A scheduled script to trigger notifications based on news events categorized by LLM."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "langchain",
+    "langchain-core",
+    "langchain-openai",
+    "feedparser",
+    "python-dotenv",
+    "pushover-complete",
+    "requests",
+    "python-dateutil",
+    "beautifulsoup4",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+]

@@ -1,0 +1,7 @@
+{
+  "rss_feed_url": "https://news.google.com/rss/search?q={keyword}&hl=en-US&gl=US&ceid=US:en",
+  "keyword_filter": "Iran",
+  "triggering_event": "Military confrontation between Iran and US or Israel has occured",
+  "lookback_minutes": 120,
+  "pushover_user_keys": ["uicmwn1gusxcpwezpv6tkx2dkhztiq"]
+}

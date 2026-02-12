@@ -1,6 +1,6 @@
 {
   "rss_feed_url": "https://news.google.com/rss/search?q={keyword}&hl=en-US&gl=US&ceid=US:en",
   "keyword_filter": "israel",
-  "triggering_event": "Hamas makes a statement",
-  "lookback_minutes": 60
+  "triggering_event": "someone used Polymarket to Bet on military events",
+  "lookback_minutes": 320
 }

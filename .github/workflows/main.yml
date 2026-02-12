@@ -3,7 +3,7 @@ name: News Event Trigger
 on:
   schedule:
     - cron: "*/15 * * * *" # every 15 mins
-  workflow_dispatch:
+#  workflow_dispatch:
 
 jobs:
   run-script:

@@ -1,6 +1,6 @@
 # News Event Trigger
 
-A scheduled Python script that monitors news via RSS, filters by keyword, classifies using an LLM (gpt-4o-mini), and notifies via Pushover.
+A scheduled Python script that monitors news via RSS, filters by keyword, classifies using an LLM, and notifies via Pushover.
 
 ## Setup
 
@@ -39,5 +39,3 @@ You must set the following **Repository Secrets** in GitHub:
 - `OPENAI_API_KEY`
 - `PUSHOVER_API_TOKEN`
 - `PUSHOVER_USER_KEYS`
-
-The script is scheduled to run every hour.

@@ -21,11 +21,11 @@ def main():
     logging.info(f"Found {len(events)} events matching keyword '{config.keyword_filter}' in the last {config.lookback_minutes} minutes.")
     logging.info(f"Expected triggering event: {config.triggering_event}")
     for event in events:
-        logging.info(f"Classifying event: {event.title}\n{event.description}")
+        logging.info(f"Classifying event: {event.title}")
         is_triggered = classify_event(event.title, event.description, config)
         
         if is_triggered:
-            logging.info(f"TRIGGERED: {event.title}")
+            logging.info(f"TRIGGERED")
             send_notification(
                 title=f"News Alert: {config.keyword_filter}",
                 message=event.title,
@@ -34,7 +34,7 @@ def main():
                 api_token=config.pushover_api_token
             )
         else:
-            logging.info(f"Not triggered: {event.title}")
+            logging.info(f"Not triggered")
 
 if __name__ == "__main__":
     main()

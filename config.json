@@ -1,6 +1,6 @@
 {
   "rss_feed_url": "https://news.google.com/rss/search?q={keyword}&hl=en-US&gl=US&ceid=US:en",
   "keyword_filter": "israel",
-  "triggering_event": "someone in israel used classified information to profit from polymarket",
+  "triggering_event": "UN Rapporteur makes a comment about israel",
   "lookback_minutes": 60
 }

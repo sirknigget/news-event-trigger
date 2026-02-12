@@ -16,6 +16,9 @@ dependencies = [
     "beautifulsoup4",
 ]
 
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
 [tool.uv]
 dev-dependencies = [
     "pytest",

@@ -19,7 +19,7 @@ def main():
     events = fetch_rss_events(config.rss_feed_url, config.lookback_minutes, config.keyword_filter)
     
     logging.info(f"Found {len(events)} events matching keyword '{config.keyword_filter}' in the last {config.lookback_minutes} minutes.")
-
+    logging.info(f"Expected triggering event: {config.triggering_event}")
     for event in events:
         logging.info(f"Classifying event: {event.title}\n{event.description}")
         is_triggered = classify_event(event.title, event.description, config)

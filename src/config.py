@@ -31,11 +31,6 @@ def load_config(config_path: str = "config.json") -> Config:
     if not openai_api_key:
         raise ValueError("OPENAI_API_KEY environment variable is not set")
     if not pushover_user_keys:
-         # Fallback to config for backward compatibility or raise error? 
-         # Plan said to move it, so let's check config as fallback but prefer env.
-         pushover_user_keys = config_data.get("pushover_user_keys", [])
-         
-    if not pushover_user_keys:
         raise ValueError("PUSHOVER_USER_KEYS environment variable is not set")
 
     keyword = config_data["keyword_filter"]

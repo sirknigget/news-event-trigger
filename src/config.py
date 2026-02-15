@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from dataclasses import dataclass
 from typing import List
@@ -32,6 +33,9 @@ def load_config(config_path: str = "config.json") -> Config:
         raise ValueError("OPENAI_API_KEY environment variable is not set")
     if not pushover_user_keys:
         raise ValueError("PUSHOVER_USER_KEYS environment variable is not set")
+
+    # log all user keys (masked)
+    logging.info(f"Loaded Pushover user keys: {[k[:4] + '****' + k[-4:] for k in pushover_user_keys]}")
 
     keyword = config_data["keyword_filter"]
     rss_url = config_data["rss_feed_url"]

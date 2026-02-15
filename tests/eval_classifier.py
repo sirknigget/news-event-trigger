@@ -14,6 +14,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.classifier import classify_event
 from src.config import Config
 
+NUM_CASES = 10
+
 # Define Pydantic model for test case generation
 class NewsTestCase(BaseModel):
     title: str = Field(description="The news event title")
@@ -23,7 +25,7 @@ class NewsTestCase(BaseModel):
 class TestCases(BaseModel):
     cases: List[NewsTestCase]
 
-def generate_test_cases(triggering_event: str, num_cases: int = 10) -> List[NewsTestCase]:
+def generate_test_cases(triggering_event: str, num_cases: int) -> List[NewsTestCase]:
     llm = ChatOpenAI(model_name="gpt-4.1", temperature=0.7)
     
     parser = PydanticOutputParser(pydantic_object=TestCases)
@@ -61,7 +63,7 @@ def run_evaluation():
         print("OPENAI_API_KEY not found. Please set it to run tests.")
         return
 
-    triggering_event = "Military confrontation between Iran and US or Israel has occured"
+    triggering_event = "Military confrontation between Iran and US or Israel has occurred"
     
     dummy_config = Config(
         rss_feed_url="",
@@ -74,7 +76,7 @@ def run_evaluation():
     )
 
     print(f"Generating test cases using gpt-4o for event: '{triggering_event}'...")
-    test_cases = generate_test_cases(triggering_event, num_cases=50)
+    test_cases = generate_test_cases(triggering_event, num_cases=NUM_CASES)
     
     if not test_cases:
         print("No test cases generated.")

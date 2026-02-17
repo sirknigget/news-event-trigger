@@ -26,7 +26,10 @@ def main():
     logging.info(f"Expected triggering event: {config.triggering_event}")
     for event in events:
         try:
+            logging.info("**********")
             logging.info(f"Classifying event: {event.title}")
+            logging.info(f"Published: {event.published.isoformat()}")
+            logging.info(f"Link: {event.link}")
             is_triggered = classify_event(event.title, event.description, config)
 
             if is_triggered:
